@@ -9,7 +9,7 @@ function App() {
   const allQuestionsData = mockQuestions
   return (
     <>
-      <Question questionData={allQuestionsData[0]}/>
+      <Question question={allQuestionsData[0].question} answers={allQuestionsData[0].answers}/>
     </>
   )
 }
