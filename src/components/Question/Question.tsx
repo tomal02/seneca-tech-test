@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import AnswerToggle from '../AnswerToggle/AnswerToggle';
 
+import './Question.css';
+
 interface Answer {
   options: string[];
   correct: string;
@@ -47,14 +49,14 @@ function Question ({question, answers}: QuestionProps) {
     let percentage = currentPoints / availablePoints * 100;
 
     if (percentage === 100) return CorrectnessLevel.Correct;
-    if (percentage >= 75) return CorrectnessLevel.MostlyCorrect;
-    if (percentage >= 50) return CorrectnessLevel.PartiallyCorrect;
+    if (percentage >= 65) return CorrectnessLevel.MostlyCorrect;
+    if (percentage >= 32) return CorrectnessLevel.PartiallyCorrect;
     return CorrectnessLevel.Incorrect;
   }
 
   return (
-    <div>
-      <h2>{question}</h2>
+    <div className={`question-container ${calculateCorrectnessLevel()}`}>
+      <h1>{question}</h1>
       {answers.map((answer, index) => (
         <div key={index}>
           <AnswerToggle
