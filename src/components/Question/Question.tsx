@@ -27,10 +27,6 @@ function Question ({question, answers}: QuestionProps) {
     setSelectedAnswers(previousState => ({ ...previousState, [index]: option }));
   }
 
-  const isCorrect = (index: number) => { //!temporary below line for testing
-    return selectedAnswers[index] === answers[index].correct;
-  };
-
   function isCorrectAndComplete(){
     return answers.every((answer, index) => selectedAnswers[index] === answer.correct); // returns true if every answer is present and correct
   }
@@ -66,9 +62,6 @@ function Question ({question, answers}: QuestionProps) {
           disabled={isCorrectAndComplete()}
           correctnessLevel={calculateCorrectnessLevel()}
           />
-          {selectedAnswers[index] !== undefined && (
-            <span>{isCorrect(index) ? 'Correct' : 'Incorrect'}</span>
-          )}
         </div>
       ))}
       <h2>
