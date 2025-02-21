@@ -11,6 +11,13 @@ interface QuestionProps {
   answers: Answer[];
 }
 
+export enum CorrectnessLevel {
+  Correct = "correct",
+  MostlyCorrect = "mostly-correct",
+  PartiallyCorrect = "partially-correct",
+  Incorrect = "incorrect",
+}
+
 function Question ({question, answers}: QuestionProps) {
   const [selectedAnswers, setSelectedAnswers] = useState<{ [key: number]: string }>({});
 
@@ -26,18 +33,45 @@ function Question ({question, answers}: QuestionProps) {
     return answers.every((answer, index) => selectedAnswers[index] === answer.correct); // returns true if every answer is present and correct
   }
 
+  function calculateScore(){
+    let currentPoints = answers.reduce((score, answer, index) => {
+      return score + (selectedAnswers[index] === answer.correct ? 1 : 0);
+    }, 0);
+    let availablePoints = answers.length;
+
+    return [currentPoints, availablePoints];
+  }
+
+  function calculateCorrectnessLevel(){
+    let [currentPoints, availablePoints] = calculateScore();
+    let percentage = currentPoints / availablePoints * 100;
+
+    if (percentage === 100) return CorrectnessLevel.Correct;
+    if (percentage >= 75) return CorrectnessLevel.MostlyCorrect;
+    if (percentage >= 50) return CorrectnessLevel.PartiallyCorrect;
+    return CorrectnessLevel.Incorrect;
+  }
+
   return (
     <div>
-      <h2>Question: {question}</h2>
+      <h2>{question}</h2>
       {answers.map((answer, index) => (
-        <div>
-          <AnswerToggle options={answer.options} selected={selectedAnswers[index]} onToggle={(option) => handleToggle(index, option)} disabled={isCorrectAndComplete()}/>
+        <div key={index}>
+          <AnswerToggle
+          options={answer.options}
+          selected={selectedAnswers[index]}
+          onToggle={(option) => handleToggle(index, option)}
+          disabled={isCorrectAndComplete()}
+          correctnessLevel={calculateCorrectnessLevel()}
+          />
           {selectedAnswers[index] !== undefined && (
             <span>{isCorrect(index) ? 'Correct' : 'Incorrect'}</span>
           )}
         </div>
       ))}
-      {isCorrectAndComplete() && <span>Quiz complete!</span>}
+      <h2>
+        The answer is {isCorrectAndComplete() && <span>correct!</span> || <span>incorrect</span>}
+      </h2>
     </div>
   );
 }
