@@ -15,6 +15,20 @@ function AnswerToggle({options, selected, onToggle, disabled, correctnessLevel}:
   // gets the index of the selected option
   const selectedIndex = options.indexOf(selected);
 
+  function getBackgroundColor(){ // Calculates the background colour based off the correctness level
+    switch (correctnessLevel) {
+      case CorrectnessLevel.Incorrect:
+        return "#F8CAA3";
+      case CorrectnessLevel.PartiallyCorrect:
+        return "#F2CBBD";
+      case CorrectnessLevel.MostlyCorrect:
+        return "#a4d4a2";
+      case CorrectnessLevel.Correct:
+      default:
+        return "#A5E7E2";
+    }
+  };
+
   return (
     <div className={`toggle-container ${correctnessLevel}`}>
       <motion.div
@@ -31,14 +45,7 @@ function AnswerToggle({options, selected, onToggle, disabled, correctnessLevel}:
         }}
         animate={{
           x: `${selectedIndex * 100}%`,
-          backgroundColor:
-            correctnessLevel === 'incorrect'
-              ? '#F8CAA3'
-              : correctnessLevel === 'partially-correct'
-              ? '#F2CBBD'
-              : correctnessLevel === 'mostly-correct'
-              ? '#a4d4a2'
-              : '#A5E7E2',
+          backgroundColor: getBackgroundColor(),
         }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
       />
