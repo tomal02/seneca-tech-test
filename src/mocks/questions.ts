@@ -6,7 +6,7 @@ export const mockQuestions = [
       { options: ["Cytoplasm", "Chloroplast"], correct: "Cytoplasm" },
       { options: ["Partially permeable membrane", "Impermeable membrane"], correct: "Partially permeable membrane" },
       { options: ["Cellulose", "Mitochondria"], correct: "Mitochondria" },
-      // { options: ["Nucleus", "Cytoplasm", "Vacuole"], correct: "Nucleus" }, // TODO: three option extension
+      { options: ["Nucleus", "Cytoplasm", "Vacuole"], correct: "Nucleus" },
     ],
   },
   // {
