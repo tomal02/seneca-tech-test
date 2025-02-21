@@ -65,7 +65,7 @@ function Question ({question, answers}: QuestionProps) {
         </div>
       ))}
       <h2>
-        The answer is {isCorrectAndComplete() && <span>correct!</span> || <span>incorrect</span>}
+        The answer is {isCorrectAndComplete() ? <span>correct!</span> : <span>incorrect</span>}
       </h2>
     </div>
   );
