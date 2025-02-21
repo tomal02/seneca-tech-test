@@ -4,12 +4,12 @@
   max-width: 900px;
   margin: 24px auto;
   background: transparent;
-  border: #A5E7E2 2px solid;
+  border: 2px solid; /* Gets the colour from correctness checks below */
   border-radius: 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
   overflow: hidden;
 
   .incorrect & {
@@ -27,7 +27,7 @@
 
 .toggle-button {
   flex: 1;
-  padding: 15px 20px;
+  padding: 24px 20px;
   border-radius: 100px;
   color: #fff;
   background-color: transparent;
