@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { motion } from 'motion/react';
+
 import AnswerToggle from '../AnswerToggle/AnswerToggle';
 import './Question.css';
 
@@ -10,6 +12,7 @@ interface Answer {
 interface QuestionProps {
   question: string;
   answers: Answer[];
+  onShuffle: () => void;
 }
 
 export enum CorrectnessLevel {
@@ -27,7 +30,7 @@ function shuffleArray(array: any[]) {
   return array;
 }
 
-function Question({ question, answers }: QuestionProps) {
+function Question({ question, answers, onShuffle }: QuestionProps) {
   const [selectedAnswers, setSelectedAnswers] = useState<{ [key: number]: string }>({});
   const [shuffledAnswers, setShuffledAnswers] = useState<Answer[]>([]);
 
@@ -44,8 +47,8 @@ function Question({ question, answers }: QuestionProps) {
     setSelectedAnswers(previousState => ({ ...previousState, [index]: option }));
   }
 
-  function isCorrectAndComplete() {
-    return shuffledAnswers.every((answer, index) => selectedAnswers[index] === answer.correct); // returns true if every answer is present and correct
+  function isCorrectAndComplete() { //TODO! merge scoring functions into one
+    return shuffledAnswers.every((answer, index) => selectedAnswers[index] === answer.correct);
   }
 
   function calculateScore() {
@@ -69,6 +72,16 @@ function Question({ question, answers }: QuestionProps) {
 
   return (
     <div className={`question-container ${calculateCorrectnessLevel()}`}>
+      <motion.button
+      className='shuffle-button'
+      onClick={onShuffle}
+      whileHover={{
+        rotate: [0, 5, -5, 5, -5, 0],
+        transition: { duration: 0.5, repeat: Infinity },
+      }}
+      >
+        Shuffle
+      </motion.button>
       <h1>{question}</h1>
       {shuffledAnswers.map((answer, index) => (
         <div key={index}>
