@@ -6,4 +6,5 @@ html, body {
 
   text-align: center;
   height: 100%;
+  overscroll-behavior: none;
 }
