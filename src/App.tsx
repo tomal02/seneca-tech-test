@@ -5,10 +5,11 @@ import mockQuestions from './mocks/questions'
 
 
 function App() {
-  const allQuestionsData = mockQuestions
+  const randomIndex = Math.floor(Math.random() * mockQuestions.length);
+  const randomQuestion = mockQuestions[randomIndex];
   return (
     <>
-      <Question question={allQuestionsData[0].question} answers={allQuestionsData[0].answers}/>
+      <Question question={randomQuestion.question} answers={randomQuestion.answers}/>
     </>
   )
 }
