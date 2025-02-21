@@ -10,6 +10,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 5px;
+  overflow: hidden;
 
   .incorrect & {
     border-color: #F8CAA3;
@@ -33,24 +34,22 @@
   font-size: 1.1em;
   border: 0;
   cursor: pointer;
+  position: relative;
+  z-index: 1;
 }
 
 .toggle-button.selected {
-  background-color: #A5E7E2;
   color: #4CAD94;
 
   .incorrect & {
-    background-color: #F8CAA3;
     color: #9F938B;
   }
 
   .partially-correct & {
-    background-color: #F2CBBD;
     color: #E47958;
   }
 
   .mostly-correct & {
-    background-color: #a4d4a2;
     color: rgb(99, 147, 96);
   }
 }
