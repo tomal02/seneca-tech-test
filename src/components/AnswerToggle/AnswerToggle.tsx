@@ -56,6 +56,8 @@ function AnswerToggle({options, selected, onToggle, disabled, correctnessLevel}:
           key={index}
           onClick={() => onToggle(option)}
           disabled={disabled}
+          aria-pressed={selected === option}
+          aria-label={option}
         >
           {option}
         </button>

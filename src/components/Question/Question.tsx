@@ -76,7 +76,7 @@ function Question({ question, answers, onShuffle }: QuestionProps) {
   const { isCorrectAndComplete, correctnessLevel } = calculateCorrectness();
 
   return (
-    <div className={`question-container ${correctnessLevel}`}>
+    <div className={`question-container ${correctnessLevel}`} role="region" aria-labelledby="question-heading">
       {/* Only shows the shuffle button if shuffle handler is passed down */}
       {onShuffle ? (
       <motion.button
@@ -86,24 +86,27 @@ function Question({ question, answers, onShuffle }: QuestionProps) {
         rotate: [0, 5, -5, 5, -5, 0],
         transition: { duration: 0.5, repeat: Infinity },
       }}
+      aria-label="Shuffle answers"
       >
         Shuffle
       </motion.button>
       ) : null}
-      <h1>{question}</h1>
-      {shuffledAnswers.map((answer, index) => (
-        <div key={index}>
-          <AnswerToggle
-            options={answer.options}
-            selected={selectedAnswers[index]}
-            onToggle={(option) => handleToggle(index, option)}
-            disabled={isCorrectAndComplete}
-            correctnessLevel={correctnessLevel}
-          />
-        </div>
-      ))}
+      <h1 id='question-heading'>{question}</h1>
+      <div role="group" aria-labelledby="question-heading">
+        {shuffledAnswers.map((answer, index) => (
+          <div key={index}>
+            <AnswerToggle
+              options={answer.options}
+              selected={selectedAnswers[index]}
+              onToggle={(option) => handleToggle(index, option)}
+              disabled={isCorrectAndComplete}
+              correctnessLevel={correctnessLevel}
+            />
+          </div>
+        ))}
+      </div>
       <h2>
-        The answer is {isCorrectAndComplete ? <span>correct!</span> : <span>incorrect</span>}
+        The answer is {isCorrectAndComplete ? <span role="alert" aria-live="assertive">correct!</span> : <span role="alert" aria-live="assertive">incorrect</span>}
       </h2>
     </div>
   );
