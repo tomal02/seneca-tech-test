@@ -1,6 +1,6 @@
 import './AnswerToggle.css';
 import { CorrectnessLevel } from '../Question/Question';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 
 interface AnswerToggleProps {
   options: string[];
@@ -11,6 +11,7 @@ interface AnswerToggleProps {
 }
 
 function AnswerToggle({options, selected, onToggle, disabled, correctnessLevel}: AnswerToggleProps) {
+
   // gets the index of the selected option
   const selectedIndex = options.indexOf(selected);
 
