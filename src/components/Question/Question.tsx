@@ -72,6 +72,8 @@ function Question({ question, answers, onShuffle }: QuestionProps) {
 
   return (
     <div className={`question-container ${calculateCorrectnessLevel()}`}>
+      {/* Only shows the shuffle button if shuffle handler is passed down */}
+      {onShuffle ? (
       <motion.button
       className='shuffle-button'
       onClick={onShuffle}
@@ -82,6 +84,7 @@ function Question({ question, answers, onShuffle }: QuestionProps) {
       >
         Shuffle
       </motion.button>
+      ) : null}
       <h1>{question}</h1>
       {shuffledAnswers.map((answer, index) => (
         <div key={index}>
