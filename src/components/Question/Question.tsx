@@ -47,31 +47,36 @@ function Question({ question, answers, onShuffle }: QuestionProps) {
     setSelectedAnswers(previousState => ({ ...previousState, [index]: option }));
   }
 
-  function isCorrectAndComplete() { //TODO! merge scoring functions into one
-    return shuffledAnswers.every((answer, index) => selectedAnswers[index] === answer.correct);
-  }
-
-  function calculateScore() {
+  // Calculates the correctness level and whether test is complete
+  function calculateCorrectness() {
     let currentPoints = shuffledAnswers.reduce((score, answer, index) => {
       return score + (selectedAnswers[index] === answer.correct ? 1 : 0);
     }, 0);
-    let availablePoints = shuffledAnswers.length;
+    const availablePoints = shuffledAnswers.length;
 
-    return [currentPoints, availablePoints];
+    const percentage = (currentPoints / availablePoints) * 100;
+
+    let correctnessLevel: CorrectnessLevel;
+    if(percentage === 100) {
+      correctnessLevel = CorrectnessLevel.Correct;
+    } else if(percentage >= 65) {
+      correctnessLevel = CorrectnessLevel.MostlyCorrect;
+    } else if (percentage >= 32) {
+      correctnessLevel = CorrectnessLevel.PartiallyCorrect;
+    } else {
+      correctnessLevel = CorrectnessLevel.Incorrect;
+    }
+
+    return {
+      isCorrectAndComplete: currentPoints === availablePoints,
+      correctnessLevel,
+    };
   }
 
-  function calculateCorrectnessLevel() {
-    let [currentPoints, availablePoints] = calculateScore();
-    let percentage = currentPoints / availablePoints * 100;
-
-    if (percentage === 100) return CorrectnessLevel.Correct;
-    if (percentage >= 65) return CorrectnessLevel.MostlyCorrect;
-    if (percentage >= 32) return CorrectnessLevel.PartiallyCorrect;
-    return CorrectnessLevel.Incorrect;
-  }
+  const { isCorrectAndComplete, correctnessLevel } = calculateCorrectness();
 
   return (
-    <div className={`question-container ${calculateCorrectnessLevel()}`}>
+    <div className={`question-container ${correctnessLevel}`}>
       {/* Only shows the shuffle button if shuffle handler is passed down */}
       {onShuffle ? (
       <motion.button
@@ -92,13 +97,13 @@ function Question({ question, answers, onShuffle }: QuestionProps) {
             options={answer.options}
             selected={selectedAnswers[index]}
             onToggle={(option) => handleToggle(index, option)}
-            disabled={isCorrectAndComplete()}
-            correctnessLevel={calculateCorrectnessLevel()}
+            disabled={isCorrectAndComplete}
+            correctnessLevel={correctnessLevel}
           />
         </div>
       ))}
       <h2>
-        The answer is {isCorrectAndComplete() ? <span>correct!</span> : <span>incorrect</span>}
+        The answer is {isCorrectAndComplete ? <span>correct!</span> : <span>incorrect</span>}
       </h2>
     </div>
   );
