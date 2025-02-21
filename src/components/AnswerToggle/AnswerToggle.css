@@ -23,6 +23,10 @@
   .mostly-correct & {
     border-color: #a4d4a2;
   }
+
+  .correct & {
+    border-color: #A5E7E2;
+  }
 }
 
 .toggle-button {
