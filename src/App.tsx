@@ -1,9 +1,8 @@
-import { useState } from 'react'
-
 import './App.css'
 import Question from './components/Question/Question'
 
 import mockQuestions from './mocks/questions'
+
 
 function App() {
   const allQuestionsData = mockQuestions

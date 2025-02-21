@@ -1,4 +1,3 @@
-import React from 'react';
 import './AnswerToggle.css';
 import { CorrectnessLevel } from '../Question/Question';
 

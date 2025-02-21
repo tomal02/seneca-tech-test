@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import AnswerToggle from '../AnswerToggle/AnswerToggle';
+import {useState} from 'react';
 
+import AnswerToggle from '../AnswerToggle/AnswerToggle';
 import './Question.css';
 
 interface Answer {
