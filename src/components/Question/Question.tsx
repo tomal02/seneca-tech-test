@@ -12,7 +12,7 @@ interface Answer {
 interface QuestionProps {
   question: string;
   answers: Answer[];
-  onShuffle: () => void;
+  onShuffle?: () => void;
 }
 
 export enum CorrectnessLevel {
@@ -34,8 +34,8 @@ function Question({ question, answers, onShuffle }: QuestionProps) {
   const [selectedAnswers, setSelectedAnswers] = useState<{ [key: number]: string }>({});
   const [shuffledAnswers, setShuffledAnswers] = useState<Answer[]>([]);
 
+  // Shuffle the answers and their options
   useEffect(() => {
-    // Shuffle the answers and their options
     const shuffled = answers.map(answer => ({
       ...answer,
       options: shuffleArray([...answer.options])
