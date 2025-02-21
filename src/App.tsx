@@ -5,7 +5,7 @@ import Question from './components/Question/Question';
 import mockQuestions from './mocks/questions';
 
 function App() {
-  const [currentIndex, setCurrentIndex] = useState(() => Math.floor(Math.random() * mockQuestions.length));
+  const [currentIndex, setCurrentIndex] = useState(() => Math.floor(Math.random() * mockQuestions.length)); // creates a random question index within the length of the array
 
   function getNewQuestionIndex() {
     let newIndex;
