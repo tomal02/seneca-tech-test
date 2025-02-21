@@ -17,7 +17,6 @@ function AnswerToggle ({options, selected, onToggle, disabled, correctnessLevel}
         className={`toggle-button ${selected === option ? 'selected' : ''}`}
         key={index}
         onClick={() => onToggle(option)}
-        style={{fontWeight: selected === option ? 'bold' : 'normal'}} // !temporary
         disabled={disabled}
         >
           {option}
